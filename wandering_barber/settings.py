@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1',
                  '.herokuapp.com']
@@ -63,7 +63,7 @@ ROOT_URLCONF = 'wandering_barber.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,6 +92,12 @@ WSGI_APPLICATION = 'wandering_barber.wsgi.application'
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.codeinstitute-ide.net/",
+    "https://*.herokuapp.com",
+    "http://127.0.0.1*"
+]
 
 AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend',]
 

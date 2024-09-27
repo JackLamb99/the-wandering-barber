@@ -53,3 +53,8 @@ def logout_view(request):
     messages.success(request, 'You have successfully logged out.')
     # Redirects to home upon successful logout
     return redirect('home')
+
+
+# View for the profile page
+def my_account(request):
+    return render(request, 'users/my_account.html')  # Render profile.html

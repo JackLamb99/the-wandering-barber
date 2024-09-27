@@ -1,15 +1,19 @@
-{% extends "base.html" %}
-{% block content %}
-
-<div class="container">
-    <h2>Register</h2>
-    <form method="POST">
-        <!-- Cross-Site Request Forgery (CSRF) Protection -->
-        {% csrf_token %}
-        <!-- Renders the form fields into HTML elements -->
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Sign Up</button>   
-    </form>
-</div>
-
-{% endblock %}
+<!doctype html>
+<html>
+    <head>
+        <title>This is the register page</title>
+    </head>
+    <body>
+        <h1>Register Page</h1>
+        <div class="container">
+            <h2>Register</h2>
+            <form method="POST">
+                <!-- Cross-Site Request Forgery (CSRF) Protection -->
+                {% csrf_token %}
+                <!-- Renders the form fields into HTML elements -->
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Sign Up</button>   
+            </form>
+        </div>
+    </body>
+</html>
