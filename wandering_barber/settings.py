@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'appointments',
+    'reviews',
+    'services',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -88,6 +92,8 @@ WSGI_APPLICATION = 'wandering_barber.wsgi.application'
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+
+AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend',]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
