@@ -94,58 +94,17 @@ button:focus {
     top: 10px;
 }
 
-
-
 /* Index Page */
 
 .header-spacer {
     height: 74px;
 }
 
-@media only screen and (min-width: 768px) {
-
-    /* Header */
-
-    .logo {
-        height: 5em;
-        padding: 4px;
-    }
-
+@media only screen and (min-width: 576px) {
     .navbar-nav {
         font-size: larger;
     }
-
-    .navbar-nav li {
-        padding: 0 10px;
-    }
-
-    /* Index Page */
-
-    .header-spacer {
-        height: 90px;
-    }
 }
 
-@media only screen and (min-width: 1000px) {
-
-    /* Header */
-
-    .logo {
-        height: 6em;
-        padding: 6px;
-    }
-
-    .navbar-nav {
-        font-size: x-large;
-    }
-
-    .navbar-nav li {
-        padding: 0 20px;
-    }
-
-    /* Index Page */
-
-    .header-spacer {
-        height: 106px;
-    }
-}
+/* @media only screen and (min-width: 768px) {} */
+/* @media only screen and (min-width: 1000px) {} */
