@@ -7,6 +7,7 @@ h1 {
     font-family: 'Libre Baskerville', sans-serif;
     font-weight: 600;
     color: #00563b;
+    text-transform: uppercase;
 }
 
 #testing-index {
@@ -21,6 +22,10 @@ h1 {
 }
 
 /* Header */
+
+.header-spacer {
+    height: 79px;
+}
 
 .logo {
     height: 4em;
@@ -94,10 +99,47 @@ button:focus {
     top: 10px;
 }
 
-/* Index Page */
+/* Footer */
 
-.header-spacer {
-    height: 74px;
+.footer-spacer {
+    height: 15px;
+}
+
+.footer {
+    background-color: #00563B;
+    color: #fff;
+    padding: 20px 0;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer .contact-text {
+    margin: 0;
+    font-size: 16px;
+}
+
+.footer .contact-link {
+    color: #E09407;
+    text-decoration: none;
+}
+
+.footer .contact-link:hover {
+    text-decoration: underline;
+    color: #FFC107;
+}
+
+.footer .social-icons {
+    margin-top: 10px;
+}
+
+.footer .social-link {
+    color: #E09407;
+    margin: 0 10px;
+    font-size: 24px;
+}
+
+.footer .social-link:hover {
+    color: #FFC107;
 }
 
 @media only screen and (min-width: 576px) {
@@ -109,6 +151,15 @@ button:focus {
 @media only screen and (min-width: 768px) {
     .navbar-nav li {
         padding: 0 10px;
+    }
+
+    .footer .contact-text {
+        font-size: larger;
+    }
+
+    .footer .social-link {
+        font-size: 36px;
+        margin: 0 20px;
     }
 }
 

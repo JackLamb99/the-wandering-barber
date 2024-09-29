@@ -1,10 +1,19 @@
-<!doctype html>
-<html>
-    <head>
-        <title>This is the footer</title>
-    </head>
-    <body>
-        <h1>Footer</h1>
-        <p>This is to test the pages are working correctly</p>
-    </body>
-</html>
+{% load static %}
+
+<!-- Footer -->
+<footer class="footer bg-dark-green">
+    <div class="container text-center">
+        <!-- Contact link -->
+        <p class="contact-text">
+            Need to get in touch? 
+            <a href="{% url 'contact' %}" class="contact-link">Contact us!</a>
+        </p>
+
+        <!-- Social media links -->
+        <div class="social-icons">
+            <a href="https://www.instagram.com/" target="_blank" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/" target="_blank" class="social-link"><i class="fa-brands fa-square-facebook"></i></a>
+            <a href="https://x.com/" target="_blank" class="social-link"><i class="fa-brands fa-square-x-twitter"></i></a>
+        </div>
+    </div>
+</footer>
