@@ -41,7 +41,7 @@ h1 {
 
 .form-content {
     /* Makes the form pages the height of the user's device minus the footer and spacers */
-    min-height: calc(100vh - 110px - 79px - 15px);
+    min-height: calc(100vh - 110px - 64px - 15px);
 }
 
 .form-content p {
@@ -64,11 +64,17 @@ h1 {
     border-color: #009666;
 }
 
-/* Header */
+/* Base Template */
 
 .header-spacer {
-    height: 79px;
+    height: 64px;
 }
+
+.footer-spacer {
+    height: 15px;
+}
+
+/* Header Template */
 
 .logo {
     height: 4em;
@@ -142,18 +148,50 @@ button:focus {
     top: 10px;
 }
 
-/* Login Page */
+/* Index Template */
 
-.form-content {
-    /* Makes the login page the height of the user's device minus the footer and spacers */
-    min-height: calc(100vh - 110px - 79px - 15px);
+/* Hero section */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 40vh;
+    overflow: hidden;
 }
 
-/* Footer */
-
-.footer-spacer {
-    height: 15px;
+/* Hero image */
+.hero-section .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
+
+/* Hero overlay */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(132, 164, 149, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    max-width: 300px;
+}
+
+.hero-subtitle {
+    margin-bottom: unset;
+    color: #fff;
+}
+
+/* Footer Template */
 
 .footer {
     background-color: #00563B;
@@ -184,7 +222,7 @@ button:focus {
 
 .footer .social-link {
     color: #E09407;
-    margin: 0 10px;
+    margin: 0 25px;
     font-size: 24px;
 }
 
@@ -194,7 +232,7 @@ button:focus {
 
 @media only screen and (min-width: 576px) {
 
-    /* Header */
+    /* Header Template */
 
     .navbar-nav {
         font-size: larger;
@@ -207,30 +245,55 @@ button:focus {
     /* Forms */
 
     .form-content {
-        min-height: calc(100vh - 132.8px - 79px - 15px);
+        min-height: calc(100vh - 132.8px - 64px - 15px);
     }
 
     .form-content p {
-        font-size: larger;
+        font-size: x-large;
     }
 
-    /* Header */
+    /* Header Template */
 
     .navbar-nav li {
         padding: 0 10px;
     }
 
-    /* Footer */
+    /* Index Template */
+
+    .hero-title {
+        font-size: 3rem;
+        max-width: 400px;
+    }
+
+    .hero-subtitle {
+        font-size: x-large;
+        max-width: 300px;
+    }
+
+    /* Footer Template */
 
     .footer .contact-text {
-        font-size: larger;
+        font-size: x-large;
     }
 
     .footer .social-link {
-        font-size: 36px;
-        margin: 0 20px;
+        font-size: 48px;
+        margin: 0 30px;
     }
 
 }
 
-/* @media only screen and (min-width: 1000px) {} */
+@media only screen and (min-width: 1000px) {
+
+    /* Index Template */
+
+    .hero-title {
+        font-size: 4rem;
+        max-width: 600px;
+    }
+
+    .hero-subtitle {
+        max-width: unset;
+    }
+
+}

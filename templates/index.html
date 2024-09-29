@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="text-center">
-    <h1>Home Page</h1>
-    <p>This is to test the pages are working correctly</p>
-    <div id="testing-index"></div>
+<!-- Hero Section -->
+<div class="hero-section d-flex align-items-center">
+    <img src="{% static 'images/hero-image.webp' %}" alt="Hero Image" class="hero-img">
+    <div class="hero-overlay text-center">
+        <h1 class="hero-title">The Wandering Barber</h1>
+        <p class="hero-subtitle">A mobile barber in the Greater Manchester area</p>
+    </div>
 </div>
+
+<div id="testing-index"></div>
 {% endblock %}
