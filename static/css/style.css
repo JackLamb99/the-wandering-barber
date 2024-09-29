@@ -1,6 +1,10 @@
-body {
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
     font-family: 'Open Sans', sans-serif;
     font-weight: 500;
+    color: #2F2F2B;
 }
 
 h1 {
@@ -19,6 +23,39 @@ h1 {
 
 .container {
     max-width: unset;
+}
+
+/* Forms */
+
+.form-container {
+    max-width: 475px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.form-content {
+    /* Makes the form pages the height of the user's device minus the footer and spacers */
+    min-height: calc(100vh - 110px - 79px - 15px);
+}
+
+.form-content p {
+    font-size: 16px;
+}
+
+.form-content a {
+    color: #E09407;
+}
+
+.form-content .btn-primary {
+    color: #E09407;
+    background-color: #00563B;
+    border-color: #00563B;
+}
+
+.form-content .btn-primary:hover {
+    color: #FFC107;
+    background-color: #009666;
+    border-color: #009666;
 }
 
 /* Header */
@@ -99,6 +136,13 @@ button:focus {
     top: 10px;
 }
 
+/* Login Page */
+
+.form-content {
+    /* Makes the login page the height of the user's device minus the footer and spacers */
+    min-height: calc(100vh - 110px - 79px - 15px);
+}
+
 /* Footer */
 
 .footer-spacer {
@@ -143,15 +187,34 @@ button:focus {
 }
 
 @media only screen and (min-width: 576px) {
+
+    /* Header */
+
     .navbar-nav {
         font-size: larger;
     }
+
 }
 
 @media only screen and (min-width: 768px) {
+
+    /* Forms */
+
+    .form-content {
+        min-height: calc(100vh - 132.8px - 79px - 15px);
+    }
+
+    .form-content p {
+        font-size: larger;
+    }
+
+    /* Header */
+
     .navbar-nav li {
         padding: 0 10px;
     }
+
+    /* Footer */
 
     .footer .contact-text {
         font-size: larger;
@@ -161,6 +224,7 @@ button:focus {
         font-size: 36px;
         margin: 0 20px;
     }
+
 }
 
 /* @media only screen and (min-width: 1000px) {} */
