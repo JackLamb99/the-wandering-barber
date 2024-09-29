@@ -5,13 +5,25 @@ html, body {
     font-family: 'Open Sans', sans-serif;
     font-weight: 500;
     color: #2F2F2B;
+    background-color: #daffed;
 }
 
-h1 {
+h1,
+h2,
+h3 {
     font-family: 'Libre Baskerville', sans-serif;
     font-weight: 600;
     color: #00563b;
     text-transform: uppercase;
+}
+
+h2 {
+    font-size: 1.75rem;
+    margin-top: 1.5rem;
+}
+
+h3 {
+    font-size: 1.25rem;
 }
 
 #testing-index {
@@ -156,12 +168,8 @@ button:focus {
     width: 100%;
     height: 40vh;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-/* Hero image */
 .hero-section .hero-img {
     position: absolute;
     top: 0;
@@ -172,7 +180,6 @@ button:focus {
     object-position: center;
 }
 
-/* Hero overlay */
 .hero-overlay {
     position: absolute;
     top: 0;
@@ -184,23 +191,26 @@ button:focus {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1;
-}
-
-.hero-title, .hero-subtitle {
-    text-align: center;
-    z-index: 2;
 }
 
 .hero-title {
     font-size: 2rem;
-    margin-bottom: 0.5rem;
     max-width: 300px;
 }
 
 .hero-subtitle {
     margin-bottom: unset;
     color: #fff;
+}
+
+/* Services section */
+.service-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.service-details * {
+    margin-bottom: .25rem
 }
 
 /* Footer Template */
@@ -254,6 +264,14 @@ button:focus {
 
 @media only screen and (min-width: 768px) {
 
+    h2 {
+        font-size: 2.5rem;
+    }
+    
+    h3 {
+        font-size: 2rem !important;
+    }
+
     /* Forms */
 
     .form-content {
@@ -272,6 +290,7 @@ button:focus {
 
     /* Index Template */
 
+    /* Hero section */
     .hero-title {
         font-size: 3rem;
         max-width: 400px;
@@ -280,6 +299,24 @@ button:focus {
     .hero-subtitle {
         font-size: x-large;
         max-width: 300px;
+    }
+
+    /* Services section */
+    .services {
+        justify-content: center;
+    }
+
+    .service-card {
+        max-width: 700px;
+    }
+
+    .service-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .service-details * {
+        font-size: x-large;
     }
 
     /* Footer Template */
@@ -297,8 +334,17 @@ button:focus {
 
 @media only screen and (min-width: 1000px) {
 
+    h2 {
+        font-size: 3.5rem;
+    }
+    
+    h3 {
+        font-size: 2.5rem !important;
+    }
+
     /* Index Template */
 
+    /* Hero section */
     .hero-title {
         font-size: 4rem;
         max-width: 600px;

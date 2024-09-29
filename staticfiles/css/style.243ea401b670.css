@@ -1,0 +1,301 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    color: #2F2F2B;
+}
+
+h1 {
+    font-family: 'Libre Baskerville', sans-serif;
+    font-weight: 600;
+    color: #00563b;
+    text-transform: uppercase;
+}
+
+#testing-index {
+    height: 1000px;
+    background-color: #00563b;
+}
+
+/* Container */
+
+.container {
+    max-width: unset;
+}
+
+/* Forms */
+
+.form-container {
+    max-width: 475px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.form-container .form-group input,
+.form-container .form-group select {
+    max-width: 475px;
+    margin: 0 auto;
+}
+
+.form-content {
+    /* Makes the form pages the height of the user's device minus the footer and spacers */
+    min-height: calc(100vh - 110px - 64px - 15px);
+}
+
+.form-content p {
+    font-size: 16px;
+}
+
+.form-content a {
+    color: #E09407;
+}
+
+.form-content .btn-primary {
+    color: #E09407;
+    background-color: #00563B;
+    border-color: #00563B;
+}
+
+.form-content .btn-primary:hover {
+    color: #FFC107;
+    background-color: #009666;
+    border-color: #009666;
+}
+
+/* Base Template */
+
+.header-spacer {
+    height: 64px;
+}
+
+.footer-spacer {
+    height: 15px;
+}
+
+/* Header Template */
+
+.logo {
+    height: 4em;
+    width: auto;
+    padding: 2px;
+}
+
+/* Navbar */
+.navbar-toggler {
+    /* Fixes the toggler icon to the right of the navbar */
+    position: fixed;
+    right: 10px;
+    border: none;
+}
+
+.navbar-light .navbar-toggler-icon {
+    /* Removes the default Bootstrap navbar toggler icon */
+    background-image: none;
+}
+
+button:focus {
+    /* Removes the default Bootstrap outline when clicking the navbar toggler */
+    outline: unset;
+}
+
+/* Base styles for the navbar toggler icon */
+.menu-icon {
+    position: relative;
+    width: 30px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-icon span {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: #00563b;
+    transition: 0.5s ease;
+    border-radius: 2px;
+}
+
+/* Positioning the three bars for the navbar toggler */
+.menu-icon span:nth-child(1) {
+    top: 0;
+}
+
+.menu-icon span:nth-child(2) {
+    top: 10px;
+}
+
+.menu-icon span:nth-child(3) {
+    top: 20px;
+}
+
+/* Changes the bars to an X when navbar is expanded */
+.navbar-toggler:not(.collapsed) .menu-icon span:nth-child(1) {
+    transform: rotate(45deg);
+    top: 10px;
+}
+
+.navbar-toggler:not(.collapsed) .menu-icon span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-toggler:not(.collapsed) .menu-icon span:nth-child(3) {
+    transform: rotate(-45deg);
+    top: 10px;
+}
+
+/* Index Template */
+
+/* Hero section */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 40vh;
+    overflow: hidden;
+}
+
+/* Hero image */
+.hero-section .hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Hero overlay */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(132, 164, 149, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-title {
+    font-size: 2rem;
+    max-width: 300px;
+}
+
+.hero-subtitle {
+    margin-bottom: unset;
+    color: #fff;
+}
+
+/* Footer Template */
+
+.footer {
+    background-color: #00563B;
+    color: #fff;
+    padding: 20px 0;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer .contact-text {
+    margin: 0;
+    font-size: 16px;
+}
+
+.footer .contact-link {
+    color: #E09407;
+    text-decoration: none;
+}
+
+.footer .contact-link:hover {
+    text-decoration: underline;
+    color: #FFC107;
+}
+
+.footer .social-icons {
+    margin-top: 10px;
+}
+
+.footer .social-link {
+    color: #E09407;
+    margin: 0 25px;
+    font-size: 24px;
+}
+
+.footer .social-link:hover {
+    color: #FFC107;
+}
+
+@media only screen and (min-width: 576px) {
+
+    /* Header Template */
+
+    .navbar-nav {
+        font-size: larger;
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+
+    /* Forms */
+
+    .form-content {
+        min-height: calc(100vh - 132.8px - 64px - 15px);
+    }
+
+    .form-content p {
+        font-size: larger;
+    }
+
+    /* Header Template */
+
+    .navbar-nav li {
+        padding: 0 10px;
+    }
+
+    /* Index Template */
+
+    .hero-title {
+        font-size: 3rem;
+        max-width: 400px;
+    }
+
+    .hero-subtitle {
+        font-size: x-large;
+        max-width: 300px;
+    }
+
+    /* Footer Template */
+
+    .footer .contact-text {
+        font-size: larger;
+    }
+
+    .footer .social-link {
+        font-size: 36px;
+        margin: 0 30px;
+    }
+
+}
+
+@media only screen and (min-width: 1000px) {
+
+    /* Index Template */
+
+    .hero-title {
+        font-size: 4rem;
+        max-width: 600px;
+    }
+
+    .hero-subtitle {
+        max-width: unset;
+    }
+
+}
