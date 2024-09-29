@@ -152,14 +152,28 @@ button:focus {
 
 /* Hero section */
 .hero-section {
-    background-image: url("{% static 'images/hero-image.webp' %}");
-    background-size: cover;
-    background-position: center;
-    height: 40vh;
     position: relative;
+    width: 100%;
+    height: 40vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.hero-section .overlay {
+/* Hero image */
+.hero-section .hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Hero overlay */
+.hero-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -167,12 +181,26 @@ button:focus {
     height: 100%;
     background-color: rgba(132, 164, 149, 0.8);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 
-.hero-section h1 {
+.hero-title, .hero-subtitle {
+    text-align: center;
+    z-index: 2;
+}
+
+.hero-title {
     font-size: 2rem;
+    margin-bottom: 0.5rem;
+    max-width: 300px;
+}
+
+.hero-subtitle {
+    margin-bottom: unset;
+    color: #fff;
 }
 
 /* Footer Template */
@@ -206,7 +234,7 @@ button:focus {
 
 .footer .social-link {
     color: #E09407;
-    margin: 0 10px;
+    margin: 0 25px;
     font-size: 24px;
 }
 
@@ -244,7 +272,15 @@ button:focus {
 
     /* Index Template */
 
+    .hero-title {
+        font-size: 3rem;
+        max-width: 400px;
+    }
 
+    .hero-subtitle {
+        font-size: x-large;
+        max-width: 300px;
+    }
 
     /* Footer Template */
 
@@ -254,9 +290,22 @@ button:focus {
 
     .footer .social-link {
         font-size: 36px;
-        margin: 0 20px;
+        margin: 0 30px;
     }
 
 }
 
-/* @media only screen and (min-width: 1000px) {} */
+@media only screen and (min-width: 1000px) {
+
+    /* Index Template */
+
+    .hero-title {
+        font-size: 4rem;
+        max-width: 600px;
+    }
+
+    .hero-subtitle {
+        max-width: unset;
+    }
+
+}
