@@ -12,14 +12,16 @@ def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            form.save()  # Saves the new user
-            messages.success(request, 'Your account has been created,'
-                             'you can now log in.')
+            # Saves the form data to create the user
+            user = form.save()
+            # Automatically logs in after registration
+            login(request, user)
             # Redirect to login page after registration
-            return redirect('login')
-        else:  # If not a POST method, show an empty form
-            form = UserRegistrationForm()
-        return render(request, 'users/register.html', {'form': form})
+            return redirect('index')
+    else:  # If not a POST method, show an empty form
+        form = UserRegistrationForm()
+    # Render the register page with the registration form
+    return render(request, 'users/register.html', {'form': form})
 
 
 def login_view(request):

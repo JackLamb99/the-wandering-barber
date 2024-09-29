@@ -33,6 +33,12 @@ h1 {
     margin: 0 auto;
 }
 
+.form-container .form-group input,
+.form-container .form-group select {
+    max-width: 475px;
+    margin: 0 auto;
+}
+
 .form-content {
     /* Makes the form pages the height of the user's device minus the footer and spacers */
     min-height: calc(100vh - 110px - 79px - 15px);

@@ -8,9 +8,24 @@ class UserRegistrationForm(UserCreationForm):
     UserCreationForm """
     # Adds fields for first name, last name and email
     # All required for registration
-    first_name = forms.CharField(max_length=30, required=True)
-    last_name = forms.CharField(max_length=30, required=True)
-    email = forms.EmailField(required=True)
+    first_name = forms.CharField(max_length=30,
+                                 required=True,
+                                 widget=forms.TextInput(
+                                     attrs={'class': 'form-control'}))
+    last_name = forms.CharField(max_length=30,
+                                required=True,
+                                widget=forms.TextInput(
+                                    attrs={'class': 'form-control'}))
+    email = forms.EmailField(required=True,
+                             widget=forms.TextInput(
+                                 attrs={'class': 'form-control'}))
+    # Adds form-control class to password fields
+    password1 = forms.CharField(label="Password",
+                                widget=forms.PasswordInput(
+                                    attrs={'class': 'form-control'}))
+    password2 = forms.CharField(label="Confirm Password",
+                                widget=forms.PasswordInput(
+                                    attrs={'class': 'form-control'}))
 
     class Meta:
         """ Used to specify additional metadata about the form """
@@ -28,7 +43,9 @@ class UserRegistrationForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         # Sets username to user's email
         user.username = self.cleaned_data['email']
+
         if commit:
             # Saves the user to the database
             user.save()
+
         return user
