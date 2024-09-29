@@ -15,14 +15,19 @@
                 <div class="form-container mx-auto">
                     <form method="post" action="{% url 'login' %}">
                         {% csrf_token %}
+
+                        <!-- Email field -->
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="text" name="username" id="email" class="form-control" placeholder="Enter your email" required>
                         </div>
+
+                        <!-- Password field -->
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
                         </div>
+
                         <button type="submit" class="btn btn-primary btn-block">Log In</button>
                     </form>
                 </div>

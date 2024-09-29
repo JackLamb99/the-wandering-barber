@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -33,8 +34,15 @@ class UserRegistrationForm(UserCreationForm):
         # Fields that will be shown in the form
         fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
 
-    # Override the default form save method
+    def clean_email(self):
+        """ Checks if the email is already registered """
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("This email is already registered.")
+        return email
+
     def save(self, commit=True):
+        """ Overrides the default form save method """
         # Calls the save method of the parent form
         user = super(UserRegistrationForm, self).save(commit=False)
         # Sets the first name, last name and email
