@@ -249,7 +249,7 @@ button:focus {
     }
 
     .form-content p {
-        font-size: x-large;
+        font-size: larger;
     }
 
     /* Header Template */
@@ -273,11 +273,11 @@ button:focus {
     /* Footer Template */
 
     .footer .contact-text {
-        font-size: x-large;
+        font-size: larger;
     }
 
     .footer .social-link {
-        font-size: 48px;
+        font-size: 36px;
         margin: 0 30px;
     }
 
