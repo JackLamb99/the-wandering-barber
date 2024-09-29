@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm
 
 
-# Create your views here.
 def register(request):
     """ Handles user registration by displaying a registration form and saving
     a new user if the form is valid. """
@@ -36,7 +36,7 @@ def login_view(request):
                 login(request, user)
                 messages.success(request, f'Welcome back, {user.first_name}.')
                 # Redirects to home upon successful login
-                return redirect('home')
+                return redirect('index')
             else:  # If login details are invalid
                 messages.error(request, 'Invalid email or password.')
         else:  # If login details are invalid
@@ -52,9 +52,9 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'You have successfully logged out.')
     # Redirects to home upon successful logout
-    return redirect('home')
+    return redirect('index')
 
 
-# View for the profile page
+@login_required
 def my_account(request):
-    return render(request, 'users/my_account.html')  # Render profile.html
+    return render(request, 'users/my_account.html')  # Render my_account.html
