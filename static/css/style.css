@@ -156,9 +156,9 @@ button:focus {
     width: 100%;
     height: 40vh;
     overflow: hidden;
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 }
 
 /* Hero image */
@@ -184,17 +184,17 @@ button:focus {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    /* z-index: 1; */
 }
 
-.hero-title, .hero-subtitle {
+/* .hero-title, .hero-subtitle {
     text-align: center;
     z-index: 2;
-}
+} */
 
 .hero-title {
     font-size: 2rem;
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
     max-width: 300px;
 }
 
