@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .forms import UserRegistrationForm
-from .models import User
 
 
 def register(request):
@@ -37,6 +37,7 @@ def login_view(request):
             user = authenticate(username=email, password=password)
             if user is not None:
                 login(request, user)
+                messages.success(request, f'Welcome back, {user.first_name}.')
                 # Redirects to home upon successful login
                 return redirect('index')
             else:  # If login details are invalid
@@ -52,6 +53,7 @@ def login_view(request):
 def logout_view(request):
     """ Logs the user out and redirects them to the homepage """
     logout(request)
+    messages.success(request, 'You have successfully logged out.')
     # Redirects to home upon successful logout
     return redirect('index')
 

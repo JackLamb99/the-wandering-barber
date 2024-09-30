@@ -7,7 +7,7 @@ def index(request):
     context = {
         'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY,
     }
-    return render(request, 'index.html', context)  # Render home.html
+    return render(request, 'index.html', context)  # Render index.html
 
 
 # View for the about page
