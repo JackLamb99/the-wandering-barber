@@ -210,7 +210,20 @@ button:focus {
 }
 
 .service-details * {
-    margin-bottom: .25rem
+    margin-bottom: .5rem
+}
+
+/* Service Area section */
+.service-area-text {
+    max-width: 600px;
+    margin: 0 auto 1rem;
+}
+
+#map {
+    height: 500px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 1rem;
 }
 
 /* Footer Template */
@@ -316,7 +329,12 @@ button:focus {
     }
 
     .service-details * {
-        font-size: x-large;
+        font-size: larger;
+    }
+
+    /* Service Area section */
+    .service-area-text {
+        font-size: larger;
     }
 
     /* Footer Template */
