@@ -255,17 +255,7 @@ button:focus {
     margin-top: 8px;
 }
 
-.datepicker-inline {
-    width: unset;
-    margin: 0 auto 0;
-}
-
-.datepicker table {
-    margin: 0 auto 0;
-}
-
-.btn-unselected,
-.service-unselected {
+.btn-unselected {
     color: #E09407;
     background-color: #00563B;
     border-color: #00563B;
@@ -277,17 +267,16 @@ button:focus {
     border-color: #009666;
 }
 
-.btn-selected,
-.service-selected {
+.btn-selected {
     color: #FFC107;
     background-color: #009666;
     border-color: #009666;
 }
 
-/* .btn.selected {
+.btn.selected {
     background-color: #009666;
     color: #FFC107;
-} */
+}
 
 .btn.time-slot-btn,
 .btn.service-btn {
@@ -391,12 +380,6 @@ button:focus {
         /* Makes the booking page the height of the user's device minus the footer, header and spacers */
         min-height: calc(100vh - 134px - 64px - 15px);
         text-align: center;
-    }
-
-    .datepicker table {
-        width: 300px;
-        height: 300px;
-        font-size: 1.25rem;
     }
 
     /* Footer */

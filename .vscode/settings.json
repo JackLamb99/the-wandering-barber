@@ -16,7 +16,10 @@
    "workbench.colorTheme": "Visual Studio Dark",
    "terminal.integrated.gpuAcceleration": "canvas",
    "cSpell.words": [
+      "datepicker",
       "headshot",
+      "Initialise",
+      "Initialises",
       "webp",
       "whitenoise"
    ],

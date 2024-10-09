@@ -19,11 +19,38 @@ h3 {
 
 h2 {
     font-size: 1.75rem;
-    margin-top: 1.5rem;
+    padding-top: 1.5rem;
 }
 
 h3 {
     font-size: 1.25rem;
+}
+
+p {
+    font-size: 1rem;
+    color: #2F2F2B;
+}
+
+a {
+    color: #E09407;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #FFC107;
+}
+
+.btn-primary {
+    color: #E09407;
+    background-color: #00563B;
+    border-color: #00563B;
+}
+
+.btn-primary:hover {
+    color: #FFC107;
+    background-color: #009666;
+    border-color: #009666;
 }
 
 #testing-index {
@@ -31,7 +58,7 @@ h3 {
     background-color: #00563b;
 }
 
-/* Container */
+/* Containers */
 
 .container {
     max-width: unset;
@@ -46,37 +73,18 @@ h3 {
 }
 
 .form-container .form-group input,
-.form-container .form-group select {
+.form-container .form-group select,
+.booking-form {
     max-width: 475px;
     margin: 0 auto;
 }
 
 .form-content {
-    /* Makes the form pages the height of the user's device minus the footer and spacers */
+    /* Makes the form pages the height of the user's device minus the footer, header and spacers */
     min-height: calc(100vh - 110px - 64px - 15px);
 }
 
-.form-content p {
-    font-size: 16px;
-}
-
-.form-content a {
-    color: #E09407;
-}
-
-.form-content .btn-primary {
-    color: #E09407;
-    background-color: #00563B;
-    border-color: #00563B;
-}
-
-.form-content .btn-primary:hover {
-    color: #FFC107;
-    background-color: #009666;
-    border-color: #009666;
-}
-
-/* Base Template */
+/* Base */
 
 .header-spacer {
     height: 64px;
@@ -86,7 +94,7 @@ h3 {
     height: 15px;
 }
 
-/* Header Template */
+/* Header */
 
 .logo {
     height: 4em;
@@ -160,7 +168,7 @@ button:focus {
     top: 10px;
 }
 
-/* Index Template */
+/* Index */
 
 /* Hero section */
 .hero-section {
@@ -210,7 +218,7 @@ button:focus {
 }
 
 .service-details * {
-    margin-bottom: .5rem
+    margin-bottom: .5rem;
 }
 
 /* Service Area section */
@@ -226,11 +234,70 @@ button:focus {
     margin: 0 auto 1rem;
 }
 
-/* Footer Template */
+/* Booking */
+
+.booking-page {
+    /* Makes the booking page the height of the user's device minus the footer, header and spacers */
+    min-height: calc(100vh - 110px - 64px - 15px);
+    text-align: center;
+}
+
+.booking-page .alert {
+    max-width: fit-content;
+    margin: 0 auto 1rem;
+}
+
+.booking-section {
+    margin-top: 16px;
+}
+
+.booking-section form h3 {
+    margin-top: 8px;
+}
+
+.datepicker-inline {
+    width: unset;
+    margin: 0 auto 0;
+}
+
+.datepicker table {
+    margin: 0 auto 0;
+}
+
+.btn-unselected,
+.service-unselected {
+    color: #E09407;
+    background-color: #00563B;
+    border-color: #00563B;
+}
+
+.btn-unselected:hover {
+    color: #FFC107;
+    background-color: #009666;
+    border-color: #009666;
+}
+
+.btn-selected,
+.service-selected {
+    color: #FFC107;
+    background-color: #009666;
+    border-color: #009666;
+}
+
+/* .btn.selected {
+    background-color: #009666;
+    color: #FFC107;
+} */
+
+.btn.time-slot-btn,
+.btn.service-btn {
+    margin-bottom: 10px;
+}
+
+/* Footer */
 
 .footer {
     background-color: #00563B;
-    color: #fff;
     padding: 20px 0;
     width: 100%;
     bottom: 0;
@@ -238,17 +305,7 @@ button:focus {
 
 .footer .contact-text {
     margin: 0;
-    font-size: 16px;
-}
-
-.footer .contact-link {
-    color: #E09407;
-    text-decoration: none;
-}
-
-.footer .contact-link:hover {
-    text-decoration: underline;
-    color: #FFC107;
+    color: #daffed;
 }
 
 .footer .social-icons {
@@ -267,7 +324,7 @@ button:focus {
 
 @media only screen and (min-width: 576px) {
 
-    /* Header Template */
+    /* Header */
 
     .navbar-nav {
         font-size: larger;
@@ -285,23 +342,23 @@ button:focus {
         font-size: 2rem !important;
     }
 
+    p {
+        font-size: 1.25rem;
+    }
+
     /* Forms */
 
     .form-content {
-        min-height: calc(100vh - 132.8px - 64px - 15px);
+        min-height: calc(100vh - 134px - 64px - 15px);
     }
 
-    .form-content p {
-        font-size: larger;
-    }
-
-    /* Header Template */
+    /* Header */
 
     .navbar-nav li {
         padding: 0 10px;
     }
 
-    /* Index Template */
+    /* Index */
 
     /* Hero section */
     .hero-title {
@@ -328,20 +385,21 @@ button:focus {
         height: 80px;
     }
 
-    .service-details * {
-        font-size: larger;
+    /* Booking */
+
+    .booking-page {
+        /* Makes the booking page the height of the user's device minus the footer, header and spacers */
+        min-height: calc(100vh - 134px - 64px - 15px);
+        text-align: center;
     }
 
-    /* Service Area section */
-    .service-area-text {
-        font-size: larger;
+    .datepicker table {
+        width: 300px;
+        height: 300px;
+        font-size: 1.25rem;
     }
 
-    /* Footer Template */
-
-    .footer .contact-text {
-        font-size: larger;
-    }
+    /* Footer */
 
     .footer .social-link {
         font-size: 36px;
@@ -360,7 +418,7 @@ button:focus {
         font-size: 2.5rem !important;
     }
 
-    /* Index Template */
+    /* Index */
 
     /* Hero section */
     .hero-title {

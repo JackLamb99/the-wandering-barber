@@ -1,10 +1,119 @@
-<!doctype html>
-<html>
-    <head>
-        <title>This is the booking page</title>
-    </head>
-    <body>
-        <h1>Booking Page</h1>
-        <p>This is to test the pages are working correctly</p>
-    </body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container booking-page">
+    <!-- Booking Header -->
+    <div class="text-center">
+        <h2>Bookings</h2>
+
+        <!-- If user is not logged in, shows a warning message with a link to login -->
+        {% if not user.is_authenticated %}
+            <p class="alert alert-warning">
+                You need to be <a href="{% url 'login' %}">logged in</a> to make an appointment.
+            </p>
+        {% endif %}
+
+        <!-- Page Selector Buttons -->
+        <div class="btn-group mb-3" role="group">
+            <button type="button" class="btn btn-selected" id="new-booking-btn" onclick="toggleSection('new-booking')">New Booking</button>
+            <button type="button" class="btn btn-unselected" id="my-bookings-btn" onclick="toggleSection('my-bookings')">My Bookings</button>
+        </div>
+    </div>
+
+    <!-- New Booking Section -->
+    <div class="booking-form" id="new-booking">
+        <form id="booking-form" method="POST" action="{% url 'booking' %}">
+            {% csrf_token %}
+            <div class="form-group mb-4">
+                <h3>Select a Date</h3>
+                <div id="datepicker"></div> <!-- Embedded Bootstrap Datepicker https://bootstrap-datepicker.readthedocs.io/ -->
+                <input type="hidden" name="appointment_date" id="appointment-date" required> <!-- Hidden field for the selected date -->
+            </div>
+
+            <!-- Time Slots Section -->
+            <div class="form-group mb-4">
+                <h3>Select a Time</h3>
+                <select name="selected_time" class="form-control" required>
+                    <option value="" disabled selected>Select Time</option>
+                    {% for time in available_time_slots %}
+                        <option value="{{ time }}">{{ time }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Services Section -->
+            <div class="form-group mb-4">
+                <h3>Select Services</h3>
+                <!-- Displays haircut service as default -->
+                <div class="btn-group-toggle mb-2">
+                    <label class="btn service-btn service-selected">
+                        <input type="checkbox" name="selected_services" value="1" data-price="45" data-duration="90" checked disabled> Haircut (£45, 90 mins)
+                    </label>
+                </div>
+
+                <!-- Displays optional services -->
+                {% for service in services %}
+                    {% if service.name != "Haircut" %}
+                        <div class="btn-group-toggle mb-2">
+                            <label class="btn service-btn service-unselected">
+                                <input type="checkbox" name="selected_services" value="{{ service.id }}" data-price="{{ service.price }}" 
+                                data-duration="{{ service.duration }}" onchange="toggleServiceCheckbox(this)"> 
+                                {{ service.name }} (£{{ service.price }}, {{ service.duration }} mins)
+                            </label>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- Address Section -->
+            <div class="form-group mb-4">
+                <h3>Booking Address</h3>
+                <input type="text" class="form-control mb-2" name="address" placeholder="Address 1" required>
+                <input type="text" class="form-control mb-2" name="address2" placeholder="Address 2 (Optional)">
+                <input type="text" class="form-control mb-2" name="city" placeholder="City" required>
+                <input type="text" class="form-control mb-2" name="postcode" placeholder="Postcode" required>
+            </div>
+
+            <!-- Hidden fields for total price and duration -->
+            <input type="hidden" name="total_price" id="total_price">
+            <input type="hidden" name="total_duration" id="total_duration">
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary" id="confirm-details-btn">Confirm Details</button>
+        </form>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirm Booking Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Please confirm your booking details:</p>
+                    <ul id="appointment-details">
+                        <!-- Appointment details will be populated here -->
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="confirm-booking">Confirm Booking</button>
+                    <button type="button" class="btn btn-secondary" id="edit-details">Edit Details</button>
+                    <button type="button" class="btn btn-danger" id="cancel-booking">Cancel Booking</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Bookings Section (hidden initially) -->
+    <div id="my-bookings" style="display:none;">
+        <h3>Your Bookings</h3>
+        <!-- Booking details will be displayed here dynamically -->
+        <div id="booking-list"></div>
+    </div>
+</div>
+{% endblock %}
