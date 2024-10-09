@@ -236,6 +236,7 @@ button:focus {
 
 /* Booking */
 
+/* Booking Form */
 .booking-page {
     /* Makes the booking page the height of the user's device minus the footer, header and spacers */
     min-height: calc(100vh - 110px - 64px - 15px);
@@ -284,14 +285,37 @@ button:focus {
     border-color: #009666;
 }
 
-/* .btn.selected {
-    background-color: #009666;
-    color: #FFC107;
-} */
-
 .btn.time-slot-btn,
 .btn.service-btn {
     margin-bottom: 10px;
+}
+
+/* Booking Modal */
+.modal-title {
+    font-family: 'Libre Baskerville', sans-serif;
+    font-weight: 600;
+    color: #00563b;
+    text-transform: uppercase;
+}
+
+#appointment-details {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#appointment-details li {
+    padding-bottom: 10px;
+}
+
+.modal-footer {
+    display: block;
+    text-align: center;
+}
+
+.modal-footer .btn {
+    display: block;
+    width: 200px;
+    margin: 10px auto;
 }
 
 /* Footer */

@@ -118,23 +118,25 @@ $(document).ready(function() {
         const postcode = $('input[name="postcode"]').val();
 
         // Creates address string, including optional Address 2 if added
-        const addressString = address2 ? `${address1}, ${address2}, ${city}, ${postcode}` : `${address1}, ${city}, ${postcode}`;
+        const addressString = address2 ? `${address1},<br>${address2},<br>${city},<br>${postcode}` : `${address1},<br>${city},<br>${postcode}`;
 
         // Gets total price and duration from hidden inputs
         const totalPrice = $('#total_price').val();
         const totalDuration = $('#total_duration').val();
 
+        // Formats the services
+        const services = Array.from($('input[name="selected_services"]:checked'))
+        .map(el => $(el).parent().text().trim())
+        .join('<br>');
+
         const appointmentDetails = `
         <li>Date: ${$('#appointment-date').val()}</li>
         <li>Time: ${$('select[name="selected_time"]').val()}</li>
-        <li>Services: ${Array.from($('input[name="selected_services"]:checked'))
-            .map(el => $(el).parent().text().trim())
-            .join(', ')}
-        </li>
-        <li>Address: ${addressString}</li>
+        <li>Services:<br>${services}</li>
+        <li>Address:<br>${addressString}</li>
         <li>Total Price: £${totalPrice}</li>
         <li>Total Duration: ${totalDuration} mins</li>
-        `;
+    `;
 
         // Populates the appointment details in the modal
         $('#appointment-details').html(appointmentDetails);
