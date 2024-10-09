@@ -37,9 +37,17 @@
                 <select name="selected_time" class="form-control" required>
                     <option value="" disabled selected>Select Time</option>
                     {% for time in available_time_slots %}
+                        <!-- Available time slots are clickable -->
                         <option value="{{ time }}">{{ time }}</option>
                     {% endfor %}
+                    {% for time in booked_time_slots %}
+                        <!-- Unavailable time slots are disabled with visual feedback -->
+                        <option value="{{ time }}" disabled style="color: red;">{{ time }} (Unavailable)</option>
+                    {% endfor %}
                 </select>
+                {% if booked_time_slots %}
+                    <p class="text-danger mt-2">The following times are unavailable: {{ booked_time_slots|join:", " }}</p>
+                {% endif %}
             </div>
 
             <!-- Services Section -->

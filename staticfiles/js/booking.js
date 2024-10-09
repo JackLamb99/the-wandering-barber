@@ -76,7 +76,6 @@ $(document).ready(function() {
     // Calls initialiseTotals function when page loads
     initialiseTotals();
 
-    // Initialises Bootstrap Datepicker
     $('#datepicker').datepicker({
         format: 'dd-mm-yyyy',
         startDate: '0d',  // Disables past dates
@@ -84,9 +83,28 @@ $(document).ready(function() {
         autoclose: true
     }).on('changeDate', function(e) {
         // Saves the selected date to the hidden input field
-        $('#appointment-date').val(
-            $('#datepicker').datepicker('getFormattedDate')
-        );
+        let selectedDate = $('#datepicker').datepicker('getFormattedDate');
+        $('#appointment-date').val(selectedDate);
+
+        // AJAX call to check available time slots
+        $.get('/book/', { appointment_date: selectedDate }, function(response) {
+            $('select[name="selected_time"]').html('');
+
+            // Add available time slots (clickable)
+            response.available_time_slots.forEach(function(time) {
+                $('select[name="selected_time"]').append(`<option value="${time}">${time}</option>`);
+            });
+
+            // Disables booked time slots
+            response.booked_time_slots.forEach(function(time) {
+                $('select[name="selected_time"]').append(`<option value="${time}" disabled style="color: red;">${time} (Unavailable)</option>`);
+            });
+
+            // Provides feedback if there are no available time slots
+            if (response.available_time_slots.length === 0) {
+                $('select[name="selected_time"]').append(`<option value="" disabled>No available time slots for this date</option>`);
+            }
+        });
     });
 
     // Handles Confirm Details button click

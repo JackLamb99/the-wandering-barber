@@ -1,7 +1,9 @@
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.utils import timezone
+from django.contrib import messages
+from django.http import JsonResponse
 from services.models import Service
 from .models import Appointment
 from .forms import BookingForm
@@ -9,12 +11,48 @@ from .forms import BookingForm
 
 def booking(request):
     """ View to display the booking form and handle user input """
+
+    # Handles AJAX request to get available time slots for a selected date
+    if request.method == 'GET' and 'appointment_date' in request.GET:
+        try:
+            selected_date_str = request.GET['appointment_date']
+
+            # Converts string date to datetime object
+            selected_date = datetime.strptime(selected_date_str, '%d-%m-%Y').date()
+
+            appointments_for_selected_date = Appointment.objects.filter(date=selected_date)
+
+            # Booked time slots
+            booked_time_slots = [appt.time.strftime('%H:%M') for appt in appointments_for_selected_date]
+            available_time_slots = ['07:00', '10:00', '13:00']
+
+            # Filters out booked time slots
+            available_time_slots = [time for time in available_time_slots if time not in booked_time_slots]
+
+            # Returns the available and booked time slots
+            return JsonResponse({
+                'available_time_slots': available_time_slots,
+                'booked_time_slots': booked_time_slots
+            })
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            # Gets cleaned data from the form
+            # Gets the selected date and time from the form
             selected_date = form.cleaned_data['appointment_date']
             selected_time = form.cleaned_data['selected_time']
+
+            # Checks for existing appointment on the selected date and time
+            existing_appointment = Appointment.objects.filter(date=selected_date, time=selected_time).exists()
+
+            if existing_appointment:
+                # Shows a message that the time is already booked
+                messages.error(request, 'The selected time slot is already booked. Please choose another time.')
+                return redirect('booking')
+
+            # Proceeds with creating the appointment
             selected_services = form.cleaned_data['selected_services']
             address_1 = form.cleaned_data['address']
             address_2 = form.cleaned_data['address2']
@@ -23,7 +61,7 @@ def booking(request):
             total_price = form.cleaned_data['total_price']
             total_duration = form.cleaned_data['total_duration']
 
-            # Manually adds Haircut service to the selected_services list
+            # Manually adds Haircut service by default
             haircut_service = Service.objects.get(name="Haircut")
             selected_services.append(str(haircut_service.id))
 
@@ -47,37 +85,26 @@ def booking(request):
                 appointment.services.add(service)
 
             appointment.save()
-            # for service_id in selected_services:
-            #     try:
-            #         service = Service.objects.get(id=int(service_id))
-            #         appointment.services.add(service)
-            #     except Service.DoesNotExist:
-            #         print(f"Service with id {service_id} does not exist.")
-            # appointment.save()
 
-            # Redirects to confirmation page
             return redirect('confirm_booking', appointment_id=appointment.id)
-        else:
-            print(form.errors)
-    else:
-        form = BookingForm()  # Shows empty form for GET requests
 
-    # Gets available time slots
-    available_time_slots = ['07:00', '10:00', '13:00']
-    appointments_today = Appointment.objects.filter(date=timezone.now().date())
-
-    # Determines which time slots are already booked
+    # Fallback: If no date selected, shows today's available time slots
+    selected_date = timezone.now().date()
+    appointments_today = Appointment.objects.filter(date=selected_date)
     booked_time_slots = [appt.time.strftime('%H:%M') for appt in appointments_today]
 
-    # Filters available slots
+    # Available time slots for today
+    available_time_slots = ['07:00', '10:00', '13:00']
+
+    # Filters out already booked time slots
     available_time_slots = [
         time for time in available_time_slots if time not in booked_time_slots
     ]
 
     return render(request, 'appointments/booking.html', {
-        'form': form,
         'available_time_slots': available_time_slots,
-        'services': Service.objects.all()
+        'booked_time_slots': booked_time_slots,
+        'services': Service.objects.all(),
     })
 
 

@@ -73,9 +73,11 @@ window.onload = function() {
 }
 
 $(document).ready(function() {
+    console.log('Booking.js is loaded');
     // Calls initialiseTotals function when page loads
     initialiseTotals();
 
+    // Initialises Bootstrap Datepicker
     $('#datepicker').datepicker({
         format: 'dd-mm-yyyy',
         startDate: '0d',  // Disables past dates
@@ -86,7 +88,7 @@ $(document).ready(function() {
         let selectedDate = $('#datepicker').datepicker('getFormattedDate');
         $('#appointment-date').val(selectedDate);
 
-        // AJAX call to check available time slots
+        // Uses AJAX to get available and booked time slots for the selected date
         $.get('/book/', { appointment_date: selectedDate }, function(response) {
             $('select[name="selected_time"]').html('');
 
