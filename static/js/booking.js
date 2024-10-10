@@ -115,7 +115,7 @@ $(document).ready(function() {
     // Handles Confirm Cancel button click in the modal
     $('#confirm-cancel').click(function() {
         const appointmentId = $('#cancel-appointment-id').val();  // Gets appointment ID from hidden field
-    
+
         // AJAX request to cancel the appointment
         $.ajax({
             url: `/cancel-booking/${appointmentId}/`,
@@ -123,17 +123,39 @@ $(document).ready(function() {
             headers: { 'X-CSRFToken': getCookie('csrftoken') },  // Includes CSRF token in headers
             success: function(response) {
                 if (response.message === 'Appointment canceled successfully') {
-                    // Hides the modal after successful cancellation
                     $('#cancelModal').modal('hide');
-    
-                    // Reloads the page to reflect the changes in the "My Bookings" list
-                    window.location.reload();
+                    window.location.reload();  // Reloads the page to reflect changes
                 } else {
                     alert('Error: ' + response.message);
                 }
             },
             error: function(xhr, status, error) {
-                const response = xhr.responseJSON || {};  // Gets the JSON response or an empty object
+                const response = xhr.responseJSON || {};
+                alert('Something went wrong: ' + (response.message || 'Unknown error'));
+            }
+        });
+    });
+
+    // Account Deletion Modal
+    $('#delete-account-btn').click(function() {
+        $('#deleteAccountModal').modal('show');
+    });
+
+    // Handles the account deletion confirmation
+    $('#confirm-delete-account').click(function() {
+        $.ajax({
+            url: '/delete-account/',
+            method: 'POST',
+            headers: { 'X-CSRFToken': getCookie('csrftoken') },  // Includes CSRF token in headers
+            success: function(response) {
+                if (response.success) {
+                    window.location.href = '/';  // Redirects to homepage after account deletion
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                const response = xhr.responseJSON || {};
                 alert('Something went wrong: ' + (response.message || 'Unknown error'));
             }
         });

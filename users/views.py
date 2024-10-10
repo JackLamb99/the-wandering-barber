@@ -1,8 +1,10 @@
+import logging
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from .forms import UserRegistrationForm
 
 
@@ -36,7 +38,6 @@ def login_view(request):
             user = authenticate(username=email, password=password)
             if user is not None:
                 login(request, user)
-                messages.success(request, f'Welcome back, {user.first_name}.')
                 # Redirects to home upon successful login
                 return redirect('index')
             else:  # If login details are invalid
@@ -49,14 +50,53 @@ def login_view(request):
     return render(request, 'users/login.html', {'form': form})
 
 
+@login_required
 def logout_view(request):
     """ Logs the user out and redirects them to the homepage """
     logout(request)
-    messages.success(request, 'You have successfully logged out.')
     # Redirects to home upon successful logout
     return redirect('index')
 
 
 @login_required
 def my_account(request):
-    return render(request, 'users/my_account.html')  # Render my_account.html
+    """ Display the user's account details. """
+    return render(request, 'users/my_account.html')
+
+
+@login_required
+def update_account(request):
+    """ Update the user's first and last name. """
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+
+        # Update user's first and last name
+        user = request.user
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+
+        messages.success(request, 'Your details have been updated.')
+        return redirect('my_account')
+
+
+# logger = logging.getLogger(__name__)
+
+
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        try:
+            # Marks the user's account as inactive
+            user = request.user
+            user.is_active = False
+            user.save()
+
+            return JsonResponse({'success': True})
+        except Exception as e:
+            # Log the exception details
+            logger.error(f"Error deleting account for user {request.user.username}: {str(e)}")
+            return JsonResponse({'success': False, 'message': str(e)}, status=500)
+    else:
+        return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=400)

@@ -108,7 +108,6 @@ $(document).ready(function() {
     $(document).on('click', '.cancel-booking-btn', function(event) {
         event.preventDefault();
         const appointmentId = $(this).data('appointment-id');
-        console.log(`Cancel button clicked for appointment ID: ${appointmentId}`);
         $('#cancel-appointment-id').val(appointmentId);  // Stores appointment ID in hidden field
         $('#cancelModal').modal('show');
     });
