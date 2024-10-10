@@ -2,13 +2,22 @@
 <h3>Your Bookings</h3>
 
 <!-- If there are no upcoming appointments -->
+{% if user.is_staff %}
+<p class="alert alert-info">You are viewing all existing appointments</p>
+{% endif %}
+
 {% if not appointments %}
-    <p class="alert alert-info">You have no upcoming appointments.</p>
+    <p class="alert alert-info">You have no upcoming appointments</p>
 {% else %}
     <ul class="list-group my-appointment-container">
         {% for appointment in appointments %}
             <li class="list-group-item" id="appointment-{{ appointment.id }}">
                 <h5 id="appointment-title">{{ appointment.date }} @ {{ appointment.time }}</h5>
+                
+                <!-- Show users details only if logged in as a staff member -->
+                {% if user.is_staff %}
+                    <p><strong>{{ appointment.user.first_name }} {{ appointment.user.last_name }}</strong> ({{ appointment.user.email }})</p>
+                {% endif %}
                 <p><strong>Services:</strong></p>
                 <ul class="my-appointment-details">
                     {% for service in appointment.services.all %}
@@ -19,7 +28,11 @@
                 <p><strong>Total Duration:</strong> {{ appointment.total_duration }} mins</p>
 
                 <!-- Cancel Booking Button -->
-                <a href="#" class="btn btn-danger cancel-booking-btn" data-appointment-id="{{ appointment.id }}">Cancel Booking</a>
+                {% if user.is_staff or appointment.user == user %}
+                    <button class="btn btn-danger cancel-booking-btn" data-appointment-id="{{ appointment.id }}">
+                        Cancel Booking
+                    </button>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>

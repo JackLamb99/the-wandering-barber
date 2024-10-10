@@ -128,11 +128,13 @@ def my_bookings(request):
     # Gets today's date
     today = timezone.now().date()
 
-    # Gets all appointments for the logged-in user where the date is today or in the future, and the status is not 'Canceled'
-    appointments = Appointment.objects.filter(user=request.user, date__gte=today, status='Booked').order_by('date', 'time')
-
-    # Debugging print statement to show appointments
-    print(f"Appointments for {request.user.username}: {appointments}")
+    # Checks if the user is staff
+    if request.user.is_staff:
+        # If staff, shows all future appointments marked as 'Booked'
+        appointments = Appointment.objects.filter(date__gte=today, status='Booked').order_by('date', 'time')
+    else:
+        # If not staff, show only the logged-in user's future appointments
+        appointments = Appointment.objects.filter(user=request.user, date__gte=today, status='Booked').order_by('date', 'time')
 
     return render(request, 'appointments/my_bookings_list.html', {
         'appointments': appointments,
@@ -142,17 +144,21 @@ def my_bookings(request):
 @login_required
 def cancel_booking(request, appointment_id):
     """ View to cancel a booking by changing its status to 'Canceled' """
-    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        try:
-            # Gets the appointment for the logged-in user
+    try:
+        # If staff, allow them to cancel any appointment; if not staff, allow only their own
+        if request.user.is_staff:
+            appointment = Appointment.objects.get(id=appointment_id)
+        else:
             appointment = Appointment.objects.get(id=appointment_id, user=request.user)
 
-            # Updates the appointment's status to 'Canceled'
-            appointment.status = 'Canceled'
-            appointment.save()
+        # Update the appointment's status to 'Canceled'
+        appointment.status = 'Canceled'
+        appointment.save()
 
-            return JsonResponse({'success': True, 'message': 'Your appointment has been canceled.'}, status=200)
-        except Appointment.DoesNotExist:
-            return JsonResponse({'success': False, 'message': 'Appointment not found.'}, status=404)
+        return JsonResponse({'message': 'Appointment canceled successfully'})
 
-    return JsonResponse({'success': False, 'message': 'Invalid request.'}, status=400)
+    except Appointment.DoesNotExist:
+        return JsonResponse({'message': 'Appointment not found'}, status=404)
+
+    except Exception as e:
+        return JsonResponse({'message': str(e)}, status=500)
