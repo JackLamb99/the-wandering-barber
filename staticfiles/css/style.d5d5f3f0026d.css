@@ -324,8 +324,7 @@ button:focus {
 
 /* Booking confirmation page */
 .confirmation-page,
-.my-account-page,
-.contact-page {
+.my-account-page {
     margin-top: 1rem;
     margin-left: unset;
     margin-right: unset;
@@ -353,16 +352,6 @@ button:focus {
 
 .my-appointment-container li {
     margin-bottom: 10px;
-}
-
-/* Contact Page */
-
-.contact-page label {
-    display: block;
-}
-
-.contact-page #id_message {
-    width: 100%;
 }
 
 /* Footer */
@@ -472,8 +461,7 @@ button:focus {
 
     /* Booking Confirmation Page */
     .confirmation-page, 
-    .my-account-page,
-    .contact-page {
+    .my-account-page {
         /* Makes the confirmation page the height of the user's device minus the footer, header and spacers */
         min-height: calc(100vh - 134px - 64px - 15px);
         text-align: center;
