@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center align-items-center confirmation-page">
+        <div class="w-200 text-center">
+            <h3 class="text-center">Booking confirmed</h3>
+            <div class="text-center mt-3">
+                Thank you for your booking, {{ appointment.user.first_name }}! Your appointment is confirmed.
+            </div>
+            <ul class="list-group mt-3 booking-details w-200">
+                <li class="list-group-item">
+                    <strong>Date:</strong> {{ appointment.date }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Time:</strong> {{ appointment.time }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Services:</strong>
+                    {% for service in appointment.services.all %}
+                        <div>{{ service.name }} (£{{ service.price }}, {{ service.duration }} mins)</div>
+                    {% endfor %}
+                </li>
+                <li class="list-group-item">
+                    <strong>Address:</strong>
+                    <div>{{ appointment.address_1 }}</div>
+                    {% if appointment.address_2 %}
+                        <div>{{ appointment.address_2 }}</div>
+                    {% endif %}
+                    <div>{{ appointment.city }}</div>
+                    <div>{{ appointment.post_code }}</div>
+                </li>
+                <li class="list-group-item">
+                    <strong>Total Price:</strong> £{{ appointment.total_price }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Total Duration:</strong> {{ appointment.total_duration }} mins
+                </li>
+            </ul>
+            <div class="text-center mt-3 w-100">
+                <a href="{% url 'booking' %}" class="btn btn-primary btn-block">Go to bookings</a>
+                <a href="{% url 'index' %}" class="btn btn-primary btn-block">Go to homepage</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

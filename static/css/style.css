@@ -318,6 +318,19 @@ button:focus {
     margin: 10px auto;
 }
 
+/* Booking confirmation page */
+.confirmation-page {
+    margin-top: 1rem;
+    margin-left: unset;
+    margin-right: unset;
+}
+
+.btn-block {
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
 /* Footer */
 
 .footer {
@@ -421,6 +434,14 @@ button:focus {
         width: 300px;
         height: 300px;
         font-size: 1.25rem;
+    }
+
+    /* Booking Confirmation Page */
+    .confirmation-page {
+        /* Makes the confirmation page the height of the user's device minus the footer, header and spacers */
+        min-height: calc(100vh - 134px - 64px - 15px);
+        text-align: center;
+        margin-top: 0;
     }
 
     /* Footer */
