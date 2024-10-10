@@ -17,6 +17,13 @@ function toggleSection(section) {
         document.getElementById('new-booking-btn').classList.remove('btn-selected');
         document.getElementById('new-booking-btn').classList.add('btn-unselected');
         document.getElementById('my-bookings-btn').classList.remove('btn-unselected');
+
+        // AJAX call to load user's bookings
+        $.get('/my-bookings/', function(data) {
+            $('#my-bookings').html(data); // Replace the content of my-bookings div with the response
+        }).fail(function(xhr, status, error) {
+            console.error("Failed to load bookings: " + error);
+        });
     }
 }
 
@@ -51,6 +58,22 @@ function toggleServiceCheckbox(checkbox) {
     }
 }
 
+// Function to gather selected services
+function getSelectedServices() {
+    let selectedServices = [];
+
+    // Always include the default Haircut service (which is disabled in the UI)
+    const haircutService = $('input[name="selected_services"][disabled]').val();
+    selectedServices.push(haircutService);
+
+    // Include any additional selected services (optional services)
+    $('input[name="selected_services"]:checked:not([disabled])').each(function() {
+        selectedServices.push($(this).val());
+    });
+
+    return selectedServices;
+}
+
 // Initialises total values based on initial selections when the page loads
 function initialiseTotals() {
     totalPrice = 45; // Haircut price
@@ -67,14 +90,67 @@ function initialiseTotals() {
     $('#total_duration').val(totalDuration);
 }
 
-// Displays "New Booking" section as default
 window.onload = function() {
-    toggleSection('new-booking');
+    const newBooking = document.getElementById('new-booking');
+    const myBookings = document.getElementById('my-bookings');
+
+    // Only toggles the section if we are on the bookings page
+    if (newBooking && myBookings) {
+        toggleSection('new-booking');
+    }
 }
 
 $(document).ready(function() {
     // Calls initialiseTotals function when page loads
     initialiseTotals();
+
+    // Cancel Booking button functionality to show the modal
+    $(document).on('click', '.cancel-booking-btn', function(event) {
+        event.preventDefault();
+        const appointmentId = $(this).data('appointment-id');
+        $('#cancel-appointment-id').val(appointmentId);  // Stores appointment ID in hidden field
+        $('#cancelModal').modal('show');
+    });
+
+    // Handles Confirm Cancel button click in the modal
+    $('#confirm-cancel').click(function() {
+        const appointmentId = $('#cancel-appointment-id').val();  // Gets appointment ID from hidden field
+    
+        // AJAX request to cancel the appointment
+        $.ajax({
+            url: `/cancel-booking/${appointmentId}/`,
+            method: 'POST',
+            headers: { 'X-CSRFToken': getCookie('csrftoken') },  // Includes CSRF token in headers
+            success: function(response) {
+                if (response.success) {
+                    $('#cancelModal').modal('hide');
+                    $(`#appointment-${appointmentId}`).remove();  // Removes the canceled appointment from the list
+                    alert(response.message);
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                const response = xhr.responseJSON || {};  // Gets the JSON response or an empty object
+                alert('Something went wrong: ' + (response.message || 'Unknown error'));
+            }
+        });
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
 
     $('#datepicker').datepicker({
         format: 'dd-mm-yyyy',
@@ -124,10 +200,10 @@ $(document).ready(function() {
         const totalPrice = $('#total_price').val();
         const totalDuration = $('#total_duration').val();
 
-        // Formats the services
-        const services = Array.from($('input[name="selected_services"]:checked'))
-        .map(el => $(el).parent().text().trim())
-        .join('<br>');
+        // Formats the services using the getSelectedServices function
+        const services = getSelectedServices().map(serviceId => {
+            return $('input[value="' + serviceId + '"]').parent().text().trim();
+        }).join('<br>');
 
         const appointmentDetails = `
         <li>Date: ${$('#appointment-date').val()}</li>
@@ -136,7 +212,7 @@ $(document).ready(function() {
         <li>Address:<br>${addressString}</li>
         <li>Total Price: £${totalPrice}</li>
         <li>Total Duration: ${totalDuration} mins</li>
-    `;
+        `;
 
         // Populates the appointment details in the modal
         $('#appointment-details').html(appointmentDetails);
@@ -182,6 +258,19 @@ $(document).ready(function() {
 
     // Confirm Booking button functionality to submit the appointment
     $('#confirm-booking').click(function() {
+        // Gets the ID of the Haircut service from the disabled checkbox
+        const haircutService = $('input[name="selected_services"][disabled]').val();
+
+        // Adds the Haircut service manually to the form if it's not already there
+        if (haircutService) {
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'selected_services',
+                value: haircutService
+            }).appendTo('#booking-form');
+        }
+
+        // Submits the form after adding the Haircut service
         $('#booking-form').off('submit').submit();
     });
 

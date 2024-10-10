@@ -17,13 +17,6 @@ function toggleSection(section) {
         document.getElementById('new-booking-btn').classList.remove('btn-selected');
         document.getElementById('new-booking-btn').classList.add('btn-unselected');
         document.getElementById('my-bookings-btn').classList.remove('btn-unselected');
-
-        // AJAX call to load user's bookings
-        $.get('/my-bookings/', function(data) {
-            $('#my-bookings').html(data); // Replace the content of my-bookings div with the response
-        }).fail(function(xhr, status, error) {
-            console.error("Failed to load bookings: " + error);
-        });
     }
 }
 
@@ -90,67 +83,14 @@ function initialiseTotals() {
     $('#total_duration').val(totalDuration);
 }
 
+// Displays "New Booking" section as default
 window.onload = function() {
-    const newBooking = document.getElementById('new-booking');
-    const myBookings = document.getElementById('my-bookings');
-
-    // Only toggles the section if we are on the bookings page
-    if (newBooking && myBookings) {
-        toggleSection('new-booking');
-    }
+    toggleSection('new-booking');
 }
 
 $(document).ready(function() {
     // Calls initialiseTotals function when page loads
     initialiseTotals();
-
-    // Cancel Booking button functionality to show the modal
-    $(document).on('click', '.cancel-booking-btn', function(event) {
-        event.preventDefault();
-        const appointmentId = $(this).data('appointment-id');
-        $('#cancel-appointment-id').val(appointmentId);  // Stores appointment ID in hidden field
-        $('#cancelModal').modal('show');
-    });
-
-    // Handles Confirm Cancel button click in the modal
-    $('#confirm-cancel').click(function() {
-        const appointmentId = $('#cancel-appointment-id').val();  // Gets appointment ID from hidden field
-    
-        // AJAX request to cancel the appointment
-        $.ajax({
-            url: `/cancel-booking/${appointmentId}/`,
-            method: 'POST',
-            headers: { 'X-CSRFToken': getCookie('csrftoken') },  // Includes CSRF token in headers
-            success: function(response) {
-                if (response.success) {
-                    $('#cancelModal').modal('hide');
-                    $(`#appointment-${appointmentId}`).remove();  // Removes the canceled appointment from the list
-                    alert(response.message);
-                } else {
-                    alert('Error: ' + response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                const response = xhr.responseJSON || {};  // Gets the JSON response or an empty object
-                alert('Something went wrong: ' + (response.message || 'Unknown error'));
-            }
-        });
-    });
-
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
 
     $('#datepicker').datepicker({
         format: 'dd-mm-yyyy',

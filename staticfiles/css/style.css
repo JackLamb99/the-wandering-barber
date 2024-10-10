@@ -10,7 +10,9 @@ html, body {
 
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5 {
     font-family: 'Libre Baskerville', sans-serif;
     font-weight: 600;
     color: #00563b;
@@ -298,15 +300,57 @@ button:focus {
     text-transform: uppercase;
 }
 
-#appointment-details {
+#appointment-details,
+.my-appointment-details {
     list-style-type: none;
     padding-left: 0;
 }
 
-.modal-footer button {
+#appointment-details li,
+.my-appointment-details li {
+    padding-bottom: 10px;
+}
+
+.modal-footer {
+    display: block;
+    text-align: center;
+}
+
+.modal-footer .btn {
     display: block;
     width: 200px;
     margin: 10px auto;
+}
+
+/* Booking confirmation page */
+.confirmation-page {
+    margin-top: 1rem;
+    margin-left: unset;
+    margin-right: unset;
+}
+
+.btn-block {
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+/* My Bookings page */
+#appointment-title {
+    font-family: 'Libre Baskerville', sans-serif;
+    font-weight: 600;
+    color: #00563b;
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+
+.my-appointment-container {
+    max-width: 500px;
+    margin: auto;
+}
+
+.my-appointment-container li {
+    margin-bottom: 10px;
 }
 
 /* Footer */
@@ -412,6 +456,14 @@ button:focus {
         width: 300px;
         height: 300px;
         font-size: 1.25rem;
+    }
+
+    /* Booking Confirmation Page */
+    .confirmation-page {
+        /* Makes the confirmation page the height of the user's device minus the footer, header and spacers */
+        min-height: calc(100vh - 134px - 64px - 15px);
+        text-align: center;
+        margin-top: 0;
     }
 
     /* Footer */

@@ -1,0 +1,26 @@
+<!-- My Bookings Section -->
+<h3>Your Bookings</h3>
+
+<!-- If there are no upcoming appointments -->
+{% if not appointments %}
+    <p class="alert alert-info">You have no upcoming appointments.</p>
+{% else %}
+    <ul class="list-group my-appointment-container">
+        {% for appointment in appointments %}
+            <li class="list-group-item" id="appointment-{{ appointment.id }}">
+                <h5 id="appointment-title">{{ appointment.date }} @ {{ appointment.time }}</h5>
+                <p><strong>Services:</strong></p>
+                <ul class="my-appointment-details">
+                    {% for service in appointment.services.all %}
+                        <li>{{ service.name }} (£{{ service.price }}, {{ service.duration }} mins)</li>
+                    {% endfor %}
+                </ul>
+                <p><strong>Total Price:</strong> £{{ appointment.total_price }}</p>
+                <p><strong>Total Duration:</strong> {{ appointment.total_duration }} mins</p>
+
+                <!-- Cancel Booking Button -->
+                <a href="#" class="btn btn-danger cancel-booking-btn" data-appointment-id="{{ appointment.id }}">Cancel Booking</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
