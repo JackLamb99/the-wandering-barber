@@ -11,9 +11,9 @@
 The navigation menu contains links to the 'Bookings', 'My Account', and 'Contact' pages. It is responsive and collapses into a hamburger menu on smaller devices.
 Users can easily navigate between pages and see clear indicators for their current page.
 
-![Navbar](docs\readme_images\navbar-large.jpg)
+![Navbar](docs/readme_images/navbar-large.jpg)
 
-![Navbar - Mobile](docs\readme_images\navbar-mobile.jpg)
+![Navbar - Mobile](docs/readme_images/navbar-mobile.jpg)
 
 ### Bookings Page
 
@@ -22,7 +22,7 @@ Users can easily navigate between pages and see clear indicators for their curre
 - Users can select a date, time, and optional services to book an appointment. The form also collects address details.
 - Time slots that have been booked are visually disabled and unclickable to prevent double booking.
 
-![Booking Form](docs\readme_images\booking-form.jpg)
+![Booking Form](docs/readme_images/booking-form.jpg)
 
 #### My Bookings Section
 
@@ -30,21 +30,21 @@ Users can easily navigate between pages and see clear indicators for their curre
 - Staff users can see all future appointments across users.
 - Canceled appointments free up time slots for future bookings.
 
-![My Bookings](docs\readme_images\my-bookings.jpg)
+![My Bookings](docs/readme_images/my-bookings.jpg)
 
 ### My Account Page
 
 - Users can view their personal details and update their first name and last name.
 - Users can delete their account with a confirmation prompt. If they delete their account, it is marked as inactive in the backend.
 
-![My Account](docs\readme_images\my-account.jpg)
+![My Account](docs/readme_image/my-account.jpg)
 
 ### Contact Page
 
 - Users can fill out a form to send inquiries to the owner.
 - Logged-in users have their name and email auto-filled. Non-logged-in users must manually input their details.
 
-![Contact](docs\readme_images\contact.jpg)
+![Contact](docs/readme_images/contact.jpg)
 
 ## Design
 
@@ -56,7 +56,7 @@ The website uses the 'Libre Baskerville' font for headers and 'Open Sans' for bo
 
 The site's colour palette is based on muted tones of green and gray, with vibrants elements of dark gold, providing a calming and professional feel.
 
-![Colour Palette](docs\readme_images\colour-pallett.png)
+![Colour Palette](docs/readme_images/colour-pallett.png)
 
 ## Technologies
 
