@@ -1,131 +1,186 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# The Wandering Barber
 
-Welcome USER_NAME,
+'The Wandering Barber' is an online booking system that allows users to book appointments for various grooming services, manage their existing appointments, and contact the barber shop for inquiries. The system supports user and staff accounts with features like appointment booking, editing, and cancellation. Users can also update their account details or delete their accounts.
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+## Features
 
-You can safely delete this README.md file or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **June 18, 2024**
+### Site Wide
 
-## Gitpod Reminders
+#### Navbar
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+The navigation menu contains links to the 'Bookings', 'My Account', and 'Contact' pages. It is responsive and collapses into a hamburger menu on smaller devices.
+Users can easily navigate between pages and see clear indicators for their current page.
 
-`python3 -m http.server`
+![Navbar](docs\readme_images\navbar-large.jpg)
 
-A blue button should appear to click: _Make Public_,
+![Navbar - Mobile](docs\readme_images\navbar-mobile.jpg)
 
-Another blue button should appear to click: _Open Browser_.
+### Bookings Page
 
-To run a backend Python file, type `python3 app.py` if your Python file is named `app.py`, of course.
+#### Booking Form
 
-A blue button should appear to click: _Make Public_,
+- Users can select a date, time, and optional services to book an appointment. The form also collects address details.
+- Time slots that have been booked are visually disabled and unclickable to prevent double booking.
 
-Another blue button should appear to click: _Open Browser_.
+![Booking Form](docs\readme_images\booking-form.jpg)
 
-By Default, Gitpod gives you superuser security privileges. Therefore, you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+#### My Bookings Section
 
-To log into the Heroku toolbelt CLI:
+- Users can view, edit, and cancel their upcoming appointments.
+- Staff users can see all future appointments across users.
+- Canceled appointments free up time slots for future bookings.
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+![My Bookings](docs\readme_images\my-bookings.jpg)
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you, so do not share it. If you accidentally make it public, you can create a new one with _Regenerate API Key_.
+### My Account Page
 
-### Connecting your Mongo database
+- Users can view their personal details and update their first name and last name.
+- Users can delete their account with a confirmation prompt. If they delete their account, it is marked as inactive in the backend.
 
-- **Connect to Mongo CLI on a IDE**
-- navigate to your MongoDB Clusters Sandbox
-- click **"Connect"** button
-- select **"Connect with the MongoDB shell"**
-- select **"I have the mongo shell installed"**
-- choose **mongosh (2.0 or later)** for : **"Select your mongo shell version"**
-- choose option: **"Run your connection string in your command line"**
-- in the terminal, paste the copied code `mongo "mongodb+srv://<CLUSTER-NAME>.mongodb.net/<DBname>" --apiVersion 1 --username <USERNAME>`
-  - replace all `<angle-bracket>` keys with your own data
-- enter password _(will not echo **\*\*\*\*** on screen)_
+![My Account](docs\readme_images\my-account.jpg)
 
-------
+### Contact Page
 
-## Release History
+- Users can fill out a form to send inquiries to the owner.
+- Logged-in users have their name and email auto-filled. Non-logged-in users must manually input their details.
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+![Contact](docs\readme_images\contact.jpg)
 
-**June 18, 2024,** Add Mongo back into template
+## Design
 
-**June 14, 2024,** Temporarily remove Mongo until the key issue is resolved
+### Typography
 
-**May 28 2024:** Fix Mongo and Links installs
+The website uses the 'Libre Baskerville' font for headers and 'Open Sans' for body text, ensuring readability and a clean, modern look.
 
-**April 26 2024:** Update node version to 16
+### Colour Palette
 
-**September 20 2023:** Update Python version to 3.9.17.
+The site's colour palette is based on muted tones of green and gray, with vibrants elements of dark gold, providing a calming and professional feel.
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+![Colour Palette](docs\readme_images\colour-pallett.png)
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+## Technologies
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+- Django: Used to develop the backend and user authentication system.
+- HTML/CSS/JavaScript: Used for the structure and styling of the front end.
+- Bootstrap: Integrated for responsive design and UI elements.
+- jQuery: Used to handle modal and form submissions.
+- SQLite: Database for storing user and appointment data during development.
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+## Testing
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+### Manual Testing
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+#### Booking Form
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+Test: Select a date, time, and services to book an appointment.
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+Steps:
+1. Open the bookings page.
+2. Select a date.
+3. Choose an available time slot.
+4. Add any optional services.
+5. Fill in the address details and submit.
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+Expected Result: Appointment is created, and the confirmation modal shows.
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+Actual Result: The system behaves as expected.
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+#### Appointment Editing and Cancellation
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+Test: Edit an appointment.
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+Steps:
+1. Open 'My Bookings'.
+2. Click 'Edit' on an appointment.
+3. Change the optional services and save.
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+Expected Result: The appointment is updated.
 
-------
+Actual Result: The system behaves as expected.
 
-## FAQ about the uptime script
+Test: Cancel an appointment.
 
-**Why have you added this script?**
+Steps:
+1. Open 'My Bookings'.
+2. Click 'Cancel' on an appointment.
+3. Confirm cancellation in the modal.
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+Expected Result: Appointment is removed from the list and marked as canceled in the database.
 
-**How will this affect me?**
+Actual Result: The system behaves as expected.
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
+#### Account Details Editing
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+Test: Edit first name and last name on the account page.
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
+Steps:
+1. Open 'My Account'.
+2. Change the first name and/or last name and click save.
 
-**So….?**
+Expected Result: The account details are updated.
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
+Actual Result: The system behaves as expected.
 
-**Can I opt out?**
+Test: Delete the account.
 
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
+Steps:
+Click the 'Delete Account' button.
+Confirm the deletion in the modal.
+Expected Result: The account is deactivated, and the user is logged out.
+Actual Result: The system behaves as expected.
 
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
+#### Contact Form
 
-**Anything more?**
+Test: Submit an inquiry.
 
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+Steps:
+1. Open the contact page.
+2. Fill in the form with valid data and submit.
 
----
+Expected Result: An email is sent to the shop.
 
-Happy coding!
+Actual Result: The system behaves as expected.
+
+#### Functional Testing
+
+Navigation Links
+
+- Test all navigation links to ensure they direct to the correct pages.
+  - Expected: All links function as expected.
+
+Form Validation
+
+- Test form validation for the booking and contact forms.
+  - Expected: Forms do not submit if required fields are missing.
+
+### Validator Testing
+
+#### HTML
+
+No errors were found when running the HTML files through the W3C validator.
+
+#### CSS
+
+The CSS files passed through the W3C CSS validator with no errors.
+
+## Deployment
+
+### Version Control
+
+- The project was developed using Git for version control and GitHub as the repository.
+- Git commands used: git add, git commit, git push.
+
+### Deployment Steps
+- Push the code to GitHub.
+- Set up Django’s production settings.
+- Deploy to Heroku.
+
+## Credits
+
+### Content
+
+- User authentication system based on the Django documentation.
+
+### Media
+
+- Images for the site were sourced from Unsplash.
